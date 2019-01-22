@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Projekt.Models.Album>
+
+@{
+    ViewBag.Title = "AlbumsSearched";
+}
+
+<h2>AlbumsSearched</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Genere)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Artist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Genere)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Artist)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.AlbumID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,85 @@
+﻿@model Projekt.Models.Album
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Album</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Genere)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Genere)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Artist)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Artist)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <p>
+        <b>Wyślij Komentarz :</b>
+        <input type="text" id="cont" />
+        <input type="button" id="send" value="Wyślij" /><br>
+        <b>Komentarze</b>
+        <ul id="komunikaty"></ul>
+    </p>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AlbumID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+@section scripts{
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.4.0.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+            var dyskusja = $.connection.AutorskiHub;
+            dyskusja.client.showMessage = function (cont) {
+                var name = '@User.Identity.Name';
+              
+                if (name == null || name == '')
+                {
+                    $('#komunikaty').append('<li>' + '<b>Anonymous</b> : ' + cont + '</li>');
+                   
+                }
+                else
+                {
+                    $('#komunikaty').append('<li>' + '<b>@User.Identity.Name</b> : ' + cont + '</li>');
+                }
+            };
+
+            $.connection.hub.start().done(function () {
+
+                $('#send').click(function () {
+                    dyskusja.server.send($('#cont').val());
+                });
+
+            });
+
+        });
+    </script>
+}

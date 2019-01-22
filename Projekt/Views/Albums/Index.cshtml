@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Projekt.Models.Album>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <b>Wyszukaj albumy</b>
+    @using (Html.BeginForm("AlbumsSearched", "Albums"))
+    {
+        <input type="text" name="searched" />
+        <input type="submit" />
+    }
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p align="right">
+   @Html.ActionLink("Load Albums From File", "GetAlbums")<br />
+    @Html.ActionLink("Delete all albums", "DeleteDatabase")
+</p>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Genere)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Artist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genere)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artist)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.AlbumID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.AlbumID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AlbumID })
+                </td>
+            </tr>
+        }
+
+    </table>
