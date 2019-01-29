@@ -11,13 +11,13 @@ using Projekt.Models;
 
 namespace Projekt.Controllers
 {
-    public class AlbumsController : Controller
+    public class AlbumsController : Controller, IAlbumControler
     {
         private AlbumDB db = new AlbumDB();
 
         public ActionResult AlbumsSearched(string searched)
         {
-            //searched = "kanye";
+            
             List<Album> albumsSearched = new List<Album>();
             foreach (Album album in db.Albums)
             {
@@ -29,6 +29,8 @@ namespace Projekt.Controllers
                 }
             }
 
+            ViewBag.Message = "Wyszukane Albumy";
+        
             return View(albumsSearched);
         }
 
