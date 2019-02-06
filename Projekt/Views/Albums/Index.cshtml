@@ -13,29 +13,30 @@
         <input type="text" name="searched" />
         <input type="submit" />
     }
-    @Html.ActionLink("Create New", "Create")
+
 </p>
 <p align="right">
-   @Html.ActionLink("Load Albums From File", "GetAlbums")<br />
+    @Html.ActionLink("Load Albums From File", "GetAlbums")<br />
     @Html.ActionLink("Delete all albums", "DeleteDatabase")
 </p>
+<b>Liczba albumów : @Model.Count().ToString()</b>
 
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Genere)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Artist)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            
-        </tr>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Genere)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Artist)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
 
-        @foreach (var item in Model)
-        {
+    </tr>
+
+    @foreach (var item in Model)
+    {
         <tr>
 
             <td>
@@ -47,13 +48,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
-            
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.AlbumID }) |
                 @Html.ActionLink("Details", "Details", new { id = item.AlbumID }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.AlbumID })
             </td>
         </tr>
-        }
+    }
 
-    </table>
+</table>

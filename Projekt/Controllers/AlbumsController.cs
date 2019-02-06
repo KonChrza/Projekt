@@ -15,6 +15,10 @@ namespace Projekt.Controllers
     {
         private AlbumDB db = new AlbumDB();
 
+        public string AlbumsCount()
+        {
+            return db.Albums.Count<Album>().ToString();
+        }
         public ActionResult AlbumsSearched(string searched)
         {
             
@@ -36,13 +40,13 @@ namespace Projekt.Controllers
 
         public ActionResult GetAlbums()
         {
-            using (StreamReader sr = new StreamReader(@"C:\Users\konch\source\repos\Projekt\Projekt\Album.txt"))
+            using (StreamReader sr = new StreamReader(@".\Album_Review_pitchfork_final.txt"))
             {
                 String line = sr.ReadToEnd().Replace(System.Environment.NewLine,"");
 
                 string[] rows = line.Split(';');
 
-                for (int i = 0; i < rows.Length; i++)
+                for (int i =0; i<rows.Length-1;i++)
                 {
                     string[] columns = rows[i].Split('#');
                     db.Albums.Add(new Album()
